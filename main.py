@@ -21,6 +21,8 @@ def main():
     note_surface = pygame.Surface((500,100))
     note_surface.fill('Grey')
     text_surface = font.render("9", True, "BLACK")
+
+
     num_rect = board_surface.get_rect(topleft =(55,55))
     while True:
         for event in pygame.event.get():
@@ -34,10 +36,9 @@ def main():
         # window.blit(textinput.surface, (20, 20))
         ###
         window.blit(board_surface,(0,0))
-        window.blit(text_surface,(63,55))
-        window.blit(text_surface,(63,13))
-        window.blit(text_surface,(63,55))
-        window.blit(note_surface,(0,400))
+        # module.test()
+        for g in module.given_list:
+            module.text_render(window, g)
         pygame.display.update()
         clock.tick(60)
 
