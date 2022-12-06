@@ -1,8 +1,9 @@
 class Given():
-    def __init__(self, x, y, num):
+    def __init__(self, x, y, num, name):
         self.x = x
         self.y = y
         self.num = num
+        self.name = name
     def get_x(self):
         return self.x
     def get_y(self):
@@ -16,7 +17,9 @@ class Given():
     def get_num(self):
         return self.num
     def __str__(self):
-        print((self.x, self.y),', value=',self.num)
+        return "Name: {}, located({}, {}), num={}".format(self.name, self.x, self.y, self.num)
+        # (self.x, self.y),', value=',self.num
+
     def coord_convert(self, to_x, to_y, gap):
         #starts at px(21,13), make the px location spread on the game board
         x = 21 + (gap * to_x)

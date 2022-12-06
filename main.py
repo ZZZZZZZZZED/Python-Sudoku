@@ -29,6 +29,11 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+            elif event.type == pygame.KEYDOWN:
+                for g in module.given_list:
+                    print(g)
+                    module.text_render(window, g)
+            
 
         ### text input
         # events = pygame.event.get()
@@ -37,8 +42,9 @@ def main():
         ###
         window.blit(board_surface,(0,0))
         # module.test()
-        for g in module.given_list:
-            module.text_render(window, g)
+        # for g in module.given_list:
+        #     print(g)
+        #     module.text_render(window, g)
         pygame.display.update()
         clock.tick(60)
 
