@@ -23,9 +23,8 @@ def init_givens():
             # if need to visit instance use "globals()['name'].attributes/methods" 
             # only "globals()[name]" makes Error
     
-    # RIGHT: print(globals()['given_0_6'].name)
-    # ERROR: print(globals()[given_0_6].name)
-
+    # ✔ : print(globals()['given_0_6'].name)
+    # × ： print(globals()[given_0_6].name)
 
 def text_render(window, given):
 
