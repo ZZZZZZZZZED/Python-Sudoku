@@ -2,31 +2,18 @@ import pandas as pd
 
 df = pd.read_excel('resource/sudoku_base.xlsx')
 
-# print(df)
-# col = 1
+print(df)
 
-# # df_temp = df.iloc[[col]]#提取一行
-# df_temp = df[[col]]
-# print(df_temp)
-# # loc = df.columns.get_loc()
-# lable = df.columns[col]
-# print(lable+1)
-# df.drop(lable, axis = 1, inplace = True)
 
-# df.insert(col+1, col, df_temp)
-# print(df)
-
-def t(df, col1, col2):
-    df_temp = df[col1:col1+1]
-    df.drop(col1, axis = 0, inplace = True)
-    df1 = df.iloc[:col2, :]
-    df2 = df.iloc[col2:, :]
-    print(df_temp)
-    print()
-    print(df1)
-    print(df2)
-
-# t(df,3,5)
+row0 = 0
+row1 = 1
+df_temp = df.iloc[row0]
+lable = df.index[row0]
+print(df_temp)
+print(lable)
+df.drop(lable, axis = 0, inplace = True)
+df.loc[lable] = df_temp
+print(df)
 
 def randomlization(df, col1, col2, row_or_col):
     # have two conditions
@@ -46,6 +33,7 @@ def randomlization(df, col1, col2, row_or_col):
         #TODO
 
     elif row_or_col == 'col':
+
         # exchanging columns for randomlizing
         exchange_col(df, col1, col2)
     else:
