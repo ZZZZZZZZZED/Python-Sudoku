@@ -1,7 +1,11 @@
 import givens
 import pygame
+import pandas as pd
 
 given_list = []
+df = pd.read_excel('resource/sudoku_base.xlsx')
+
+
 
 def swap_rows(df, row1, row2):
 
@@ -14,6 +18,17 @@ def swap_rows(df, row1, row2):
 
 def swap_cols(df, col1, col2):
     df[[col1,col2]] = df[[col2,col1]]
+
+def Randomization(df, line1, line2, row_or_col):
+
+    # have two conditions
+    if row_or_col == 'row':
+        swap_rows(df, line1, line2)
+    elif row_or_col == 'col':
+        swap_cols(df, line1, line2)
+    else:
+        raise Exception('row_or_col should only be \'row\' or \'col\', not {}.'.format(row_or_col))
+    return df
 
 def exchange_col(df, col1, col2):
 
