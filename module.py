@@ -3,6 +3,18 @@ import pygame
 
 given_list = []
 
+def swap_rows(df, row1, row2):
+
+    # custom function from stack overflow: https://stackoverflow.com/questions/63423089/how-to-swap-two-rows-of-a-pandas-dataframe
+    # copy row a, b then 
+    a, b = df.iloc[row1, :].copy(), df.iloc[row2, :].copy()
+
+    # switch to b, a according to index
+    df.iloc[row1, :], df.iloc[row2, :] = b, a
+
+def swap_cols(df, col1, col2):
+    df[[col1,col2]] = df[[col2,col1]]
+
 def exchange_col(df, col1, col2):
 
     # df[[col1,col2]] = df[[col2,col1]] can also make this but index not change
