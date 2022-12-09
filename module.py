@@ -3,6 +3,15 @@ import pygame
 
 given_list = []
 
+def exchange_col(df, col1, col2):
+    # only need to consider two adjacent columns to cover all possibilities
+    # two adjacent columns should in same 3x3 block xy[0,2][3,5][6,8]
+    df_temp = df.iloc[:, col1] # get column from index: col1
+    lable = df.columns[col1] # get column name from index for upcoming operations
+    
+    # drop and insert column to make exchange
+    df.drop(lable, axis = 1, inplace = True)  # drop col1
+    df.insert(col2, lable, df_temp) #(iloc, name, data); insert col1 at the index of loc2
 
 def init_givens():
 

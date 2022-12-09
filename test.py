@@ -46,10 +46,8 @@ def randomlization(df, col1, col2, row_or_col):
         #TODO
 
     elif row_or_col == 'col':
-        # replacing column method
-        # save col by col name
+        # exchanging columns for randomlizing
         exchange_col(df, col1, col2)
-
     else:
         raise Exception('row_or_col should only be \'row\' or \'col\', not {}.'.format(row_or_col))
 
@@ -57,22 +55,14 @@ def randomlization(df, col1, col2, row_or_col):
     return df
 
 def exchange_col(df, col1, col2):
+    # only need to consider two adjacent columns to cover all possibilities
+    # two adjacent columns should in same 3x3 block xy[0,2][3,5][6,8]
     df_temp = df.iloc[:, col1] # get column from index: col1
-    lable = df.columns[col1]
-    df.drop(lable, axis = 1, inplace = True)
-    print('after drop:')
-    print(df)
-    df.insert(col2, lable, df_temp) #(iloc, name, data)
+    lable = df.columns[col1] # get column name from index for upcoming operations
+    
+    # drop and insert column to make exchange
+    df.drop(lable, axis = 1, inplace = True)  # drop col1
+    df.insert(col2, lable, df_temp) #(iloc, name, data); insert col1 at the index of loc2
 
 
-exchange_col(df, 0, 1)
-print("df1:")
-print(df)
-print("2:")
-exchange_col(df, 0, 1)
-print(df)
-exchange_col(df, 1, 2)
-print(df)
-# print(randomlization(df,0,2,'col'))
-# print(randomlization(df,0,2,'col'))
 
