@@ -1,15 +1,24 @@
 import givens
 import pygame
+import random
 import pandas as pd
 
 given_list = []
-
+random_list = [0, 1, 3, 4, 6, 7]
 
 df = pd.read_excel('resource/sudoku_base.xlsx')
 
 
+def row_or_col():
+    row_col_list = [0, 1]
+    if random.choice(row_col_list) == 0:
+        return 'row'
+    else:
+        return 'col'
 
 def get_base_num(x, y, df):
+    
+    # use pandas '.at' method, at[ilocRow, ilocCol]
     return df.at[y, x]
 
 def swap_rows(df, row1, row2):
@@ -29,8 +38,10 @@ def randomization(df, line1, line2, row_or_col):
     # have two conditions
     if row_or_col == 'row':
         swap_rows(df, line1, line2)
+        print('swaping {} and {}.'.format(line1, line2))
     elif row_or_col == 'col':
         swap_cols(df, line1, line2)
+        print('swaping {} and {}.'.format(line1, line2))
     else:
         raise Exception('row_or_col should only be \'row\' or \'col\', not {}.'.format(row_or_col))
     return df
@@ -47,7 +58,21 @@ def exchange_col(df, col1, col2):
     df.drop(lable, axis = 1, inplace = True)  # drop col1
     df.insert(col2, lable, df_temp) #(iloc, name, data); insert col1 at the index of loc2
 
+def random_base(times):
+    pick = random.choice(random_list)
+    last_pick = -1
+
+    for i in range(times):
+        pick = random.choice(random_list)
+        if pick != last_pick:
+            randomization(df, pick, pick+1, row_or_col())
+            last_pick = pick
+        else:
+            print('pick repeated value, do again.')
+
 def init_givens():
+    
+    random_base(30)
 
     # in 9 x 9 game board
     for i in range(9):
@@ -68,6 +93,9 @@ def init_givens():
     
     # ✔ : print(globals()['given_0_6'].name)
     # × ： print(globals()[given_0_6].name)
+
+    
+    
 
 def text_render(window, given):
 
