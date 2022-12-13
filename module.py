@@ -3,9 +3,14 @@ import pygame
 import pandas as pd
 
 given_list = []
+
+
 df = pd.read_excel('resource/sudoku_base.xlsx')
 
 
+
+def get_base_num(x, y, df):
+    return df.at[y, x]
 
 def swap_rows(df, row1, row2):
 
@@ -19,7 +24,7 @@ def swap_rows(df, row1, row2):
 def swap_cols(df, col1, col2):
     df[[col1,col2]] = df[[col2,col1]]
 
-def Randomization(df, line1, line2, row_or_col):
+def randomization(df, line1, line2, row_or_col):
 
     # have two conditions
     if row_or_col == 'row':
@@ -51,7 +56,7 @@ def init_givens():
             # make givens instance by their location
             # instance name should be 'given_0_0'
             name = 'given_' + str(i) + '_' + str(j)
-            globals()[name] = givens.Given(i, j, 0, name)
+            globals()[name] = givens.Given(i, j, get_base_num(i, j, df), name) # (x, y, num, name)
 
             # convert the original coord to px coord in the window
             globals()[name].coord_convert(i, j, 42.5)
@@ -72,7 +77,7 @@ def text_render(window, given):
     # if each number > 0 then show the number according to coords
     if given.get_num() > 0:
         text_surface = font.render(format(given.get_num()), True, "BLACK")
-        return window.blit(text_surface, (given.get_x(), given.get_y()))
+        return window.blit(text_surface, (given.window_x, given.window_y))
 
     # else show the input box
     else:

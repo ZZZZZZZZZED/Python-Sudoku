@@ -4,10 +4,8 @@ class Given():
         self.y = y
         self.num = num
         self.name = name
-    def get_x(self):
-        return self.x
-    def get_y(self):
-        return self.y
+        self.window_x = 0
+        self.window_y = 0
     def set_x(self,x):
         self.x = x
     def set_y(self,y):
@@ -16,13 +14,14 @@ class Given():
         self.num = value
     def get_num(self):
         return self.num
+    def df_get_num(self, df):
+        
+        return
     def __str__(self):
-        return "Name: {}, located({}, {}), num={}".format(self.name, self.x, self.y, self.num)
+        return "Name: {}, located({}, {}), window_coord({}, {}), num={}".format(self.name, self.x, self.y, self.window_x, self.window_y, self.num)
         # (self.x, self.y),', value=',self.num
 
     def coord_convert(self, to_x, to_y, gap):
         #starts at px(21,13), make the px location spread on the game board
-        x = 21 + (gap * to_x)
-        y = 13 + (gap * to_y)
-        self.set_x(x)
-        self.set_y(y)
+        self.window_x = 21 + (gap * to_x)
+        self.window_y = 13 + (gap * to_y)
