@@ -38,10 +38,10 @@ def randomization(df, line1, line2, row_or_col):
     # have two conditions
     if row_or_col == 'row':
         swap_rows(df, line1, line2)
-        print('swaping {} and {}.'.format(line1, line2))
+        print('swaping row {} and {}.'.format(line1, line2))
     elif row_or_col == 'col':
         swap_cols(df, line1, line2)
-        print('swaping {} and {}.'.format(line1, line2))
+        print('swaping col {} and {}.'.format(line1, line2))
     else:
         raise Exception('row_or_col should only be \'row\' or \'col\', not {}.'.format(row_or_col))
     return df
