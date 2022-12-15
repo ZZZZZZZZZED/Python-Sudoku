@@ -40,11 +40,7 @@ def make_empty(df, level:int):
     else:
         print('Not playable, only {} slots left, need {}.'.format(slots, mini_accept))
 
-while True:
-    df_temp = make_empty(df, 2)
-    if isinstance(df_temp, pd.core.frame.DataFrame):
-        df = df_temp
-        break
+
 
 def row_or_col():
     row_col_list = [0, 1]
@@ -109,11 +105,16 @@ def random_base(times):
             print('pick repeated value, do again.')
 
 def init_givens():
-    
+    global df
     random_base(30)
 
-    make_empty(df, 2)
-    
+    # do make_empty while random game df_temp is success generated.
+    while True:
+        df_temp = make_empty(df, 2)
+        if isinstance(df_temp, pd.core.frame.DataFrame):
+            df = df_temp
+            break
+
     # in 9 x 9 game board
     for i in range(9):
         for j in range(9):
