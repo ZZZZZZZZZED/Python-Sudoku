@@ -10,7 +10,7 @@ df = pd.read_excel('resource/sudoku_base.xlsx')
 
 def make_empty(df, level:int):
     
-    copy_df = df
+    copy_df = df.copy()
 
     # 9 x 9 game board
     full_slots = 9 * 9
@@ -33,14 +33,16 @@ def make_empty(df, level:int):
                 copy_df.at[j, i] = 0
                 slots = slots - 1
     if slots >= mini_accept:
-        print('Accepted, {} slots available.'.format(slots))
-        return False
+        print('Accepted, {} slots available.'.format(slots)) 
+        return copy_df
     else:
         print('Not playable, only {} slots left, need {}.'.format(slots, mini_accept))
-        return True
-            
-# def playable(df, pct):
-while make_empty(df, 2):
-    print(df)
+
+
+# while make_empty(df, 2):
+while True:
+    df_temp = make_empty(df, 2)
+    if isinstance(df_temp, pd.core.frame.DataFrame):
+        df = df_temp
+        break
 print(df)
-# make_empty(df, 2)
