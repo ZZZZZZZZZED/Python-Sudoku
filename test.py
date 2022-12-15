@@ -38,11 +38,9 @@ def make_empty(df, level:int):
     else:
         print('Not playable, only {} slots left, need {}.'.format(slots, mini_accept))
 
-
-# while make_empty(df, 2):
 while True:
     df_temp = make_empty(df, 2)
     if isinstance(df_temp, pd.core.frame.DataFrame):
         df = df_temp
         break
-print(df)
+
