@@ -1,6 +1,6 @@
 import pygame
 import module
-# import pygame_textinput
+import pygame_textinput
 
 from sys import exit
 
@@ -22,16 +22,24 @@ def main():
     note_surface.fill('Grey')
     text_surface = font.render("9", True, "BLACK")
 
+    # Create TextInput-object
+    textinput = pygame_textinput.TextInputVisualizer()
 
     num_rect = board_surface.get_rect(topleft =(55,55))
     while True:
+        events = pygame.event.get()
+        textinput.update(events)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                # for g in module.given_list:
+                #     module.text_render(window, g)
+                window.blit(textinput.surface, (event.pos[0], event.pos[1]))
+                print(event.pos[0])
             # elif event.type == pygame.KEYDOWN:
-            #     for g in module.given_list:
-            #         module.text_render(window, g)
+            #     
             
 
         ### text input
