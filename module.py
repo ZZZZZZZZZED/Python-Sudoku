@@ -8,23 +8,30 @@ given_list = []
 
 df = pd.read_excel('resource/sudoku_base.xlsx')
 
-def overwrite(pos, input):
+
+def check_available(pos):
     name = 'given_' + str(pos[0]) + '_' + str(pos[1])
     for g in given_list:
         if g.name == name:
+            return g.fixed
+
+def overwrite(pos, input):
+    name = 'given_' + str(pos[0]) + '_' + str(pos[1])
+    for g in given_list:
+        if g.name == name and not g.fixed:
             g.num = input
 
-def mousepos_to_boardpos(x, y):
+def mousepos_to_boardpos(pos):
     min_x = []
     min_y = []
     for i in range(9):
-        name = 'given_' + str(i) + '_' + str(0)
+        name = 'given_' + str(pos[0]) + '_' + str(0)
         for g in given_list:
             if g.name == name:
                 temp = abs(g.window_x - x)
                 min_x.append(temp)
     for j in range(9):
-        name = 'given_' + str(0) + '_' + str(j)
+        name = 'given_' + str(0) + '_' + str(pos[1])
         for g in given_list:
             if g.name == name:
                 temp = abs(g.window_y - y)
@@ -147,6 +154,10 @@ def init_givens():
             name = 'given_' + str(i) + '_' + str(j)
             globals()[name] = givens.Given(i, j, get_base_num(i, j, df), name) # (x, y, num, name)
 
+            # fixed slots cannot be changed in the game
+            if globals()[name].num != 0:
+                globals()[name].fixed = True
+                
             # convert the original coord to px coord in the window
             globals()[name].coord_convert(i, j, 42.5)
             given_list.append(globals()[name])

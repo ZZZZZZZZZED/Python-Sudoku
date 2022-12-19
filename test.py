@@ -2,14 +2,16 @@ import module
 
 module.init_givens()
 
-def abd_pos(pos):
-    if 
-    return
+def check_available(pos):
+    name = 'given_' + str(pos[0]) + '_' + str(pos[1])
+    for g in module.given_list:
+        if g.name == name:
+            return g.fixed
 
 def overwrite(pos, input):
     name = 'given_' + str(pos[0]) + '_' + str(pos[1])
     for g in module.given_list:
-        if g.name == name:
+        if g.name == name and not g.fixed:
             g.num = input
 
 def mousepos_to_boardpos(x, y):

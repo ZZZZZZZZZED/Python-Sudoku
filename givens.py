@@ -6,6 +6,7 @@ class Given():
         self.name = name
         self.window_x = 0
         self.window_y = 0
+        self.fixed = False
     def set_x(self,x):
         self.x = x
     def set_y(self,y):
@@ -14,11 +15,8 @@ class Given():
         self.num = value
     def get_num(self):
         return self.num
-    def df_get_num(self, df):
-        
-        return
     def __str__(self):
-        return "Name: {}, located({}, {}), window_coord({}, {}), num={}".format(self.name, self.x, self.y, self.window_x, self.window_y, self.num)
+        return "Name: {}, located({}, {}), window_coord({}, {}), num={}, fixed = {}".format(self.name, self.x, self.y, self.window_x, self.window_y, self.num,self.fixed)
         # (self.x, self.y),', value=',self.num
 
     def coord_convert(self, to_x, to_y, gap):
