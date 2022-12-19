@@ -1,44 +1,30 @@
-import pygame_textinput
-import pygame
+import module
 
-def main():
+module.init_givens()
 
+min_x = []
+min_y = []
 
-    x = 0
-    y = 0
+def input_value(x, y, input):
+    name = 'given_' + str(x) + '_' + str(y)
+    for g in module.given_list:
+        if g.name == name:
+            g.num = input
 
-            
+def mousepos_to_boardpos(x, y):
 
-    
+    for i in range(9):
+        name = 'given_' + str(i) + '_' + str(0)
+        for g in module.given_list:
+            if g.name == name:
+                temp = abs(g.window_x - x)
+                min_x.append(temp)
+    for j in range(9):
+        name = 'given_' + str(0) + '_' + str(j)
+        for g in module.given_list:
+            if g.name == name:
+                temp = abs(g.window_y - y)
+                min_y.append(temp)
+    return (min_x.index(min(min_x)), min_y.index(min(min_y)))
 
-    # Create TextInput-object
-    textinput = pygame_textinput.TextInputVisualizer()
-
-    screen = pygame.display.set_mode((1000, 200))
-    clock = pygame.time.Clock()
-
-    while True:
-        
-        screen.fill((225, 225, 225))
-
-        events = pygame.event.get()
-
-        # Feed it with events every frame
-        textinput.update(events)
-        # Blit its surface onto the screen
-        # screen.blit(textinput.surface, (10, 10))
-
-        for event in events:
-            if event.type == pygame.QUIT:
-                exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                x = event.pos[0]
-                y = event.pos[1]
-                print(x,y)
-        screen.blit(textinput.surface, (x, y))    
-        pygame.display.update()
-        clock.tick(60)
-
-if __name__ == "__main__":
-    pygame.init()
-    main()
+print(mousepos_to_boardpos(350,2))

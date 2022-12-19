@@ -48,6 +48,7 @@ def main():
         ### text input
         if x > 0 and y > 0:
             window.blit(textinput.surface, (x, y))
+            print(textinput.value)
         pygame.display.update()
         clock.tick(60)
 

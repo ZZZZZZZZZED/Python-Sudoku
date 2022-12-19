@@ -22,6 +22,6 @@ class Given():
         # (self.x, self.y),', value=',self.num
 
     def coord_convert(self, to_x, to_y, gap):
-        #starts at px(21,13), make the px location spread on the game board
+        #starts at pos(21,13), make the px location spread on the game board
         self.window_x = 21 + (gap * to_x)
         self.window_y = 13 + (gap * to_y)
