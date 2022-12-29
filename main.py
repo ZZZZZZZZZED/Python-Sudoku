@@ -9,8 +9,7 @@ module.init_givens()
 
 
 def main():
-    x = 0
-    y = 0
+    pos = (0, 0)
     # Create TextInput-object
     textinput = pygame_textinput.TextInputVisualizer()
     window = pygame.display.set_mode(size=(400,500))
@@ -29,13 +28,13 @@ def main():
         window.fill((225, 225, 225))
         events = pygame.event.get()
         textinput.update(events)
+
         for event in events:
             if event.type == pygame.QUIT:
                 exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                x = event.pos[0]
-                y = event.pos[1]
-                print(x, y)
+                pos = event.pos
+
 
         
 
@@ -46,8 +45,9 @@ def main():
         for g in module.given_list:
             module.text_render(window, g)
         ### text input
-        if x > 0 and y > 0:
-            window.blit(textinput.surface, (x, y))
+        window.blit(textinput.surface, pos)
+        if isinstance(textinput.value, int):
+            module.overwrite(pos, textinput.value)
             print(textinput.value)
         pygame.display.update()
         clock.tick(60)
