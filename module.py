@@ -3,12 +3,14 @@ import pygame
 import random
 import pandas as pd
 
+
 given_list = []
 
 
 df = pd.read_excel('resource/sudoku_base.xlsx')
 
 def check_available(pos):
+    pos = mousepos_to_boardpos(pos)
     name = 'given_' + str(pos[0]) + '_' + str(pos[1])
     for g in given_list:
         if g.name == name:
@@ -31,7 +33,7 @@ def mousepos_to_boardpos(pos):
     min_x = []
     min_y = []
     for i in range(9):
-        name = 'given_' + str(pos[0]) + '_' + str(0)
+        name = 'given_' + str(i) + '_' + str(0)
         for g in given_list:
             if g.name == name:
 
@@ -39,7 +41,7 @@ def mousepos_to_boardpos(pos):
                 temp = abs(g.window_x - pos[0])
                 min_x.append(temp)
     for j in range(9):
-        name = 'given_' + str(0) + '_' + str(pos[1])
+        name = 'given_' + str(0) + '_' + str(j)
         for g in given_list:
             if g.name == name:
 

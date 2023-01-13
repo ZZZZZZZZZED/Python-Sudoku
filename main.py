@@ -38,17 +38,19 @@ def main():
         events = pygame.event.get()
         textinput.update(events)
 
+
+
         for event in events:
             if event.type == pygame.QUIT:
                 exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 pos = event.pos
                 ### text input
+                # if module.check_available(pos):
+                print(module.check_available(pos))
                 window.blit(textinput.surface, pos)
-                print('blit at {}'.format(pos))
-                if isinstance(textinput.value, int):
-                    module.overwrite(pos, textinput.value)
-                    print(textinput.value)
+                print('blit at {}, value is {}'.format(pos, textinput.value))
+
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     print("enter!")
