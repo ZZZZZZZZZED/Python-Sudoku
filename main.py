@@ -51,10 +51,29 @@ def main():
                 window.blit(textinput.surface, pos)
                 print('blit at {}, value is {}'.format(pos, textinput.value))
 
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
+            elif event.type == pygame.KEYDOWN and module.check_available(pos):
+                if event.unicode == '/r':
                     print("enter!")
-                    print(textinput.value)
+                elif event.unicode == '1':
+                        module.overwrite(pos, 1)
+                elif event.unicode == '2':
+                        module.overwrite(pos, 2)
+                elif event.unicode == '3':
+                        module.overwrite(pos, 3)
+                elif event.unicode == '4':
+                        module.overwrite(pos, 4)
+                elif event.unicode == '5':
+                        module.overwrite(pos, 5)
+                elif event.unicode == '6':
+                        module.overwrite(pos, 6)
+                elif event.unicode == '7':
+                        module.overwrite(pos, 7)
+                elif event.unicode == '8':
+                        module.overwrite(pos, 8)
+                elif event.unicode == '9':
+                        module.overwrite(pos, 9)
+
+                
                     
         
 

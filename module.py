@@ -12,13 +12,16 @@ df = pd.read_excel('resource/sudoku_base.xlsx')
 def check_available(pos):
     pos = mousepos_to_boardpos(pos)
     name = 'given_' + str(pos[0]) + '_' + str(pos[1])
+
+    # if find given have preset value, then return False
     for g in given_list:
         if g.name == name:
-            return g.fixed
+            return not g.fixed
 
 def overwrite(pos, input):
     # overwrite a value into a boardpos
 
+    pos = mousepos_to_boardpos(pos)
     name = 'given_' + str(pos[0]) + '_' + str(pos[1])
 
     # find given by given's name, if not create at init then overwrite
@@ -191,11 +194,16 @@ def text_render(window, given):
     font = pygame.font.Font(None,50)
 
     # if each number > 0 then show the number according to coords
-    if given.get_num() > 0:
+    if given.get_num() > 0 and given.fixed:
+
+        # show the original numbers black.
         text_surface = font.render(format(given.get_num()), True, "BLACK")
         return window.blit(text_surface, (given.window_x, given.window_y))
 
-    # else show the input box
-    else:
-        return
+    elif given.get_num() > 0 and not given.fixed:
+
+        # show the editable numbers blue.
+        text_surface = font.render(format(given.get_num()), True, "BLUE")
+        return window.blit(text_surface, (given.window_x, given.window_y))
+
     
