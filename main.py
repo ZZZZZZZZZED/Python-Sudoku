@@ -27,7 +27,7 @@ def main():
     # boarder png 
     boarder_surface = pygame.image.load('graphics/boarder.png')
     # scale boarder to proper size
-    boarder_surface = pygame.transform.scale(boarder_surface, (40, 40))
+    boarder_surface = pygame.transform.scale(boarder_surface, (44, 44))
 
     # Create the log window
     log_window = pygame.Surface((400, 100))
@@ -49,13 +49,7 @@ def main():
             if event.type == pygame.QUIT:
                 exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                pos = event.pos
-                ### text input
-                # if module.check_available(pos):
-                print(module.check_available(pos))
-                window.blit(boarder_surface,(pos))
-                
-                print('blit at {}, value is {}'.format(pos, textinput.value))
+                pos = (event.pos[0] - 11, event.pos[1] - 11)
 
             elif event.type == pygame.KEYDOWN and module.check_available(pos):
                 if event.unicode == '/r':
@@ -78,6 +72,8 @@ def main():
                         module.overwrite(pos, 8)
                 elif event.unicode == '9':
                         module.overwrite(pos, 9)
+                elif event.unicode == '/b' or '0':
+                        module.overwrite(pos, 0)
 
                 
                     
@@ -98,9 +94,11 @@ def main():
             for j in range(9):
                 x = i * 42.5
                 y = j * 42.5
-                posi = (x,y)
+                posi = (x, y)
                 if module.check_available(posi):
-                    window.blit(boarder_surface, (x+8, y+8))
+                    if module.mousepos_to_boardpos(posi) == module.mousepos_to_boardpos(pos):
+                    # print(module.mousepos_to_boardpos(posi))
+                        window.blit(boarder_surface, (x+8, y+8))
                 
         
 
