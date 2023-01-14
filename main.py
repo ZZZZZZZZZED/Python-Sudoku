@@ -94,7 +94,15 @@ def main():
         window.blit(log_window, (0, 400))
 
         # draw highlight boarder
-        window.blit(boarder_surface,(pos[0]-20, pos[1]-20))
+        for i in range(9):
+            for j in range(9):
+                x = i * 42.5
+                y = j * 42.5
+                posi = (x,y)
+                if module.check_available(posi):
+                    window.blit(boarder_surface, (x+8, y+8))
+                
+        
 
         pygame.display.update()
 
