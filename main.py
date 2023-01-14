@@ -23,7 +23,12 @@ def main():
     clock = pygame.time.Clock()
     font = pygame.font.Font(None,50)
     board_surface = pygame.image.load('graphics/board.png').convert()
-    
+
+    # boarder png 
+    boarder_surface = pygame.image.load('graphics/boarder.png')
+    # scale boarder to proper size
+    boarder_surface = pygame.transform.scale(boarder_surface, (40, 40))
+
     # Create the log window
     log_window = pygame.Surface((400, 100))
 
@@ -48,7 +53,8 @@ def main():
                 ### text input
                 # if module.check_available(pos):
                 print(module.check_available(pos))
-                window.blit(textinput.surface, pos)
+                window.blit(boarder_surface,(pos))
+                
                 print('blit at {}, value is {}'.format(pos, textinput.value))
 
             elif event.type == pygame.KEYDOWN and module.check_available(pos):
@@ -81,13 +87,14 @@ def main():
 
         for g in module.given_list:
             module.text_render(window, g)
-
+        
         
 
         # Draw the log window
         window.blit(log_window, (0, 400))
 
-        
+        # draw highlight boarder
+        window.blit(boarder_surface,(pos[0]-20, pos[1]-20))
 
         pygame.display.update()
 
