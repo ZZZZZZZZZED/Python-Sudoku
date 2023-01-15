@@ -1,11 +1,13 @@
 import pygame
 import module
+import view
 import datetime
 import pygame_textinput
 
 from sys import exit
 
 module.init_givens()
+view.init_highlight_pos()
 
 # Set up the log messages list
 log_messages = []
@@ -90,15 +92,18 @@ def main():
         window.blit(log_window, (0, 400))
 
         # draw highlight boarder
-        for i in range(9):
-            for j in range(9):
-                x = i * 42.5
-                y = j * 42.5
-                posi = (x, y)
-                if module.check_available(posi):
-                    if module.mousepos_to_boardpos(posi) == module.mousepos_to_boardpos(pos):
-                    # print(module.mousepos_to_boardpos(posi))
-                        window.blit(boarder_surface, (x+8, y+8))
+        # for i in range(9):
+        #     for j in range(9):
+        #         x = i * 42.5
+        #         y = j * 42.5
+        #         posi = (x, y)
+        # # if module.check_available(posi):
+        
+
+        # if module.mousepos_to_boardpos(posi) == module.mousepos_to_boardpos(pos):
+        # # print(module.mousepos_to_boardpos(posi))
+        if module.check_available(pos):
+                window.blit(boarder_surface, (view.find_gridpos_by_click(pos)[0] + 8, view.find_gridpos_by_click(pos)[1] + 8))
                 
         
 
