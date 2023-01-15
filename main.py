@@ -37,7 +37,7 @@ def main():
     # Set up the font for rendering text
     font = pygame.font.Font(None, 36)
 
-    text_surface = font.render("9", True, "BLACK")
+
 
 
     while True:
@@ -83,28 +83,18 @@ def main():
 
         window.blit(board_surface,(0,0))
 
+        # Render givens
         for g in module.given_list:
-            module.text_render(window, g)
+             module.text_render(window, g)
         
-        
-
         # Draw the log window
         window.blit(log_window, (0, 400))
 
-        # draw highlight boarder
-        # for i in range(9):
-        #     for j in range(9):
-        #         x = i * 42.5
-        #         y = j * 42.5
-        #         posi = (x, y)
-        # # if module.check_available(posi):
-        
-
-        # if module.mousepos_to_boardpos(posi) == module.mousepos_to_boardpos(pos):
-        # # print(module.mousepos_to_boardpos(posi))
+        # Draw highlight boarder
+        # +8 means pos fix; for consistency of showing pos and logical pos
         if module.check_available(pos):
-                window.blit(boarder_surface, (view.find_gridpos_by_click(pos)[0] + 8, view.find_gridpos_by_click(pos)[1] + 8))
-                
+             window.blit(boarder_surface, (view.find_gridpos_by_click(pos)[0] + 8, view.find_gridpos_by_click(pos)[1] + 8))
+                        
         
 
         pygame.display.update()
