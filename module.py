@@ -1,6 +1,7 @@
 import givens
 import pygame
 import random
+import view
 import pandas as pd
 
 
@@ -188,7 +189,7 @@ def init_givens():
     
     
 
-def text_render(window, given):
+def text_render(window, given, pos, value):
 
     # set font
     font = pygame.font.Font(None,50)
@@ -196,14 +197,27 @@ def text_render(window, given):
     # if each number > 0 then show the number according to coords
     if given.get_num() > 0 and given.fixed:
 
-        # show the original numbers black.
-        text_surface = font.render(format(given.get_num()), True, "BLACK")
-        return window.blit(text_surface, (given.window_x, given.window_y))
-
+        # Show original numbers black.
+        given.color = "BLACK"
+        
     elif given.get_num() > 0 and not given.fixed:
 
-        # show the editable numbers blue.
-        text_surface = font.render(format(given.get_num()), True, "BLUE")
-        return window.blit(text_surface, (given.window_x, given.window_y))
-
+        # Show editable numbers blue.
+        given.color = "BLUE"
     
+    elif given.get_num() > 0 and view.check_valid(pos, value):
+
+        # Show invalid numbers red.
+        given.color = "RED"
+    
+    elif given.get_num() <= 0:
+        return
+
+    text_surface = font.render(format(given.get_num()), True, given.color)
+    return window.blit(text_surface, (given.window_x, given.window_y))
+
+        
+    
+
+
+

@@ -1,5 +1,6 @@
 import module
 import pygame
+import itertools
 
 window_pos_grid = []
 board_pos_grid = []
@@ -29,9 +30,40 @@ def find_gridpos_by_click(pos:tuple):
     else:
         return 'fail find, or fixed slot.'
 
-def check_valid(boardpos):
-    # check related 3 x 3 and 1 x 9 after each edit.
+def check_valid(boardpos, num):
+    # check related 3 x 3, 1 x 9, 9 x 1 after each edit.
     # if valid return BLUE color, if not return RED color.
     # Returned value should be use in text_surface color parameter.
 
+    x = boardpos[0]
+    y = boardpos[1]
+    block1 = [0,1,2]
+    block2 = [3,4,5]
+    block3 = [6,7,8]
+    large_grid = [block1, block2, block3]
+    block_locate = [9,9]
     
+    for i, lst in enumerate(large_grid):
+        if x in lst:
+            block_locate[0] = i
+            x_list = large_grid[i]
+        if y in lst:
+            block_locate[1] = i
+            y_list = large_grid[i]
+
+    permutations = list(itertools.product(x_list, y_list))
+
+    # 3 * 3
+    for i, pos in enumerate(permutations):
+        name = 'given_' + str(pos[0]) + '_' + str(pos[1])
+        for g in module.given_list:
+            if g.name == name and g.num > 0:
+                if g.num == num:
+                    g.color = "RED"
+    
+    return "BLUE"
+    # 1 * 9 
+    # for i in range(9):
+
+    # print(permutations)
+    # print(x_list,y_list)

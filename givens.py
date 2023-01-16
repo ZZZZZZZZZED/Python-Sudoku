@@ -7,6 +7,7 @@ class Given():
         self.window_x = 0
         self.window_y = 0
         self.fixed = False
+        self.color = "BLACK"
     def set_x(self,x):
         self.x = x
     def set_y(self,y):

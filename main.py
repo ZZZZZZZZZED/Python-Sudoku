@@ -18,6 +18,7 @@ def add_log_message(message):
 
 def main():
     pos = (0, 0)
+    num = 0
     # Create TextInput-object
     textinput = pygame_textinput.TextInputVisualizer()
     window = pygame.display.set_mode(size=(400,500))
@@ -57,25 +58,35 @@ def main():
                 if event.unicode == '/r':
                     print("enter!")
                 elif event.unicode == '1':
-                        module.overwrite(pos, 1)
+                    num = 1
+                    module.overwrite(pos, 1)
                 elif event.unicode == '2':
-                        module.overwrite(pos, 2)
+                    num = 2
+                    module.overwrite(pos, 2)
                 elif event.unicode == '3':
-                        module.overwrite(pos, 3)
+                    num = 3
+                    module.overwrite(pos, 3)
                 elif event.unicode == '4':
-                        module.overwrite(pos, 4)
+                    num = 4
+                    module.overwrite(pos, 4)
                 elif event.unicode == '5':
-                        module.overwrite(pos, 5)
+                    num = 5
+                    module.overwrite(pos, 5)
                 elif event.unicode == '6':
-                        module.overwrite(pos, 6)
+                    num = 6
+                    module.overwrite(pos, 6)
                 elif event.unicode == '7':
-                        module.overwrite(pos, 7)
+                    num = 7
+                    module.overwrite(pos, 7)
                 elif event.unicode == '8':
-                        module.overwrite(pos, 8)
+                    num = 8
+                    module.overwrite(pos, 8)
                 elif event.unicode == '9':
-                        module.overwrite(pos, 9)
+                    num = 9
+                    module.overwrite(pos, 9)
                 elif event.unicode == '/b' or '0':
-                        module.overwrite(pos, 0)
+                    num = 0
+                    module.overwrite(pos, 0)
 
                 
                     
@@ -85,7 +96,7 @@ def main():
 
         # Render givens
         for g in module.given_list:
-             module.text_render(window, g)
+             module.text_render(window, g, pos, num)
         
         # Draw the log window
         window.blit(log_window, (0, 400))
