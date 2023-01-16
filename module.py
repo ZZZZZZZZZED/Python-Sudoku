@@ -199,16 +199,18 @@ def text_render(window, given, pos, value):
 
         # Show original numbers black.
         given.color = "BLACK"
-        
+
+    elif given.get_num() > 0 and not view.check_valid(mousepos_to_boardpos(pos), value):
+
+        # Show invalid numbers red.
+        given.color = "RED"
+
     elif given.get_num() > 0 and not given.fixed:
 
         # Show editable numbers blue.
         given.color = "BLUE"
     
-    elif given.get_num() > 0 and view.check_valid(pos, value):
-
-        # Show invalid numbers red.
-        given.color = "RED"
+    
     
     elif given.get_num() <= 0:
         return

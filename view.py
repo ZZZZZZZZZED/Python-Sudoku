@@ -37,6 +37,8 @@ def check_valid(boardpos, num):
 
     x = boardpos[0]
     y = boardpos[1]
+    x_list = []
+    y_list = []
     block1 = [0,1,2]
     block2 = [3,4,5]
     block3 = [6,7,8]
@@ -52,18 +54,24 @@ def check_valid(boardpos, num):
             y_list = large_grid[i]
 
     permutations = list(itertools.product(x_list, y_list))
-
+    permutations.remove((x, y))
+    print(permutations)
     # 3 * 3
+    print(num)
     for i, pos in enumerate(permutations):
         name = 'given_' + str(pos[0]) + '_' + str(pos[1])
         for g in module.given_list:
             if g.name == name and g.num > 0:
+                print('g ', g.num)
                 if g.num == num:
-                    g.color = "RED"
+                    
+                    num = 0
+                    return False
+ 
     
-    return "BLUE"
+    return True
     # 1 * 9 
     # for i in range(9):
 
-    # print(permutations)
+    
     # print(x_list,y_list)
