@@ -181,10 +181,9 @@ def init_givens():
             print(globals()[name])
 
             # if need to visit instance use "globals()['name'].attributes/methods" 
-            # only "globals()[name]" makes Error
+
     
-    # ✔ : print(globals()['given_0_6'].name)
-    # × ： print(globals()[given_0_6].name)
+
 
     
     

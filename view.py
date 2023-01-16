@@ -55,23 +55,40 @@ def check_valid(boardpos, num):
 
     permutations = list(itertools.product(x_list, y_list))
     permutations.remove((x, y))
-    print(permutations)
+
     # 3 * 3
-    print(num)
     for i, pos in enumerate(permutations):
         name = 'given_' + str(pos[0]) + '_' + str(pos[1])
         for g in module.given_list:
             if g.name == name and g.num > 0:
-                print('g ', g.num)
                 if g.num == num:
-                    
-                    num = 0
+                    print("block fail")
                     return False
- 
+
+    # 1 * 9 and 9 * 1
+    x_list = []
+    y_list = []
+    for i in range(9):
+        x_list.append((x, i))
+        y_list.append((i, y))
     
+    for x, y in zip(x_list, y_list):
+        name = 'given_' + str(x[0]) + '_' + str(x[1])
+        for g in module.given_list:
+            if g.name == name and g.num > 0:
+                if g.num == num:
+                    print("x fail")
+                    return False
+        name = 'given_' + str(y[0]) + '_' + str(y[1])
+        for g in module.given_list:
+            if g.name == name and g.num > 0:
+                if g.num == num:
+                    print("y fail")
+                    return False
+    # for i, pos in enumerate(y_list):
+
     return True
-    # 1 * 9 
-    # for i in range(9):
+    
 
     
     # print(x_list,y_list)
