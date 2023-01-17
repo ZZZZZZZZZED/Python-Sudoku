@@ -6,6 +6,7 @@ import pandas as pd
 
 
 given_list = []
+input = 0
 
 
 df = pd.read_excel('resource/sudoku_base.xlsx')
@@ -19,9 +20,10 @@ def check_available(pos):
         if g.name == name:
             return not g.fixed
 
-def overwrite(pos, input):
+def overwrite(pos):
     # overwrite a value into a boardpos
 
+    global input
     pos = mousepos_to_boardpos(pos)
     name = 'given_' + str(pos[0]) + '_' + str(pos[1])
 
@@ -188,8 +190,9 @@ def init_givens():
     
     
 
-def text_render(window, given, pos, value):
+def text_render(window, given, pos):
 
+    global input
     # set font
     font = pygame.font.Font(None,50)
 
@@ -199,7 +202,7 @@ def text_render(window, given, pos, value):
         # Show original numbers black.
         given.color = "BLACK"
 
-    elif given.get_num() > 0 and not view.check_valid(mousepos_to_boardpos(pos), value):
+    elif given.get_num() > 0 and not view.block_valid(mousepos_to_boardpos(pos)):
 
         # Show invalid numbers red.
         given.color = "RED"
@@ -208,8 +211,6 @@ def text_render(window, given, pos, value):
 
         # Show editable numbers blue.
         given.color = "BLUE"
-    
-    
     
     elif given.get_num() <= 0:
         return

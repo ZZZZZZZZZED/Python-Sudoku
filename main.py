@@ -18,7 +18,7 @@ def add_log_message(message):
 
 def main():
     pos = (0, 0)
-    num = 0
+    module.input = 0
     # Create TextInput-object
     textinput = pygame_textinput.TextInputVisualizer()
     window = pygame.display.set_mode(size=(400,500))
@@ -58,45 +58,35 @@ def main():
                 if event.unicode == '/r':
                     print("enter!")
                 elif event.unicode == '1':
-                    num = 1
-                    module.overwrite(pos, 1)
+                    module.input = 1
                 elif event.unicode == '2':
-                    num = 2
-                    module.overwrite(pos, 2)
+                    module.input = 2
                 elif event.unicode == '3':
-                    num = 3
-                    module.overwrite(pos, 3)
+                    module.input = 3
                 elif event.unicode == '4':
-                    num = 4
-                    module.overwrite(pos, 4)
+                    module.input = 4
                 elif event.unicode == '5':
-                    num = 5
-                    module.overwrite(pos, 5)
+                    module.input = 5
                 elif event.unicode == '6':
-                    num = 6
-                    module.overwrite(pos, 6)
+                    module.input = 6
                 elif event.unicode == '7':
-                    num = 7
-                    module.overwrite(pos, 7)
+                    module.input = 7
                 elif event.unicode == '8':
-                    num = 8
-                    module.overwrite(pos, 8)
+                    module.input = 8
                 elif event.unicode == '9':
-                    num = 9
-                    module.overwrite(pos, 9)
+                    module.input = 9
                 elif event.unicode == '/b' or '0':
-                    num = 0
-                    module.overwrite(pos, 0)
+                    module.input = 0
+                module.overwrite(pos)
+                print(module.input)
 
-                
-                    
-        
 
         window.blit(board_surface,(0,0))
 
         # Render givens
         for g in module.given_list:
-             module.text_render(window, g, pos, num)
+            module.text_render(window, g, pos)
+
         
         # Draw the log window
         window.blit(log_window, (0, 400))
@@ -104,13 +94,13 @@ def main():
         # Draw highlight boarder
         # +8 means pos fix; for consistency of showing pos and logical pos
         if module.check_available(pos):
-             window.blit(boarder_surface, (view.find_gridpos_by_click(pos)[0] + 8, view.find_gridpos_by_click(pos)[1] + 8))
+            window.blit(boarder_surface, (view.find_gridpos_by_click(pos)[0] + 8, view.find_gridpos_by_click(pos)[1] + 8))
                         
         
 
         pygame.display.update()
 
-        clock.tick(60)
+        clock.tick(30)
 
 if __name__=="__main__":
     

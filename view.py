@@ -30,7 +30,7 @@ def find_gridpos_by_click(pos:tuple):
     else:
         return 'fail find, or fixed slot.'
 
-def check_valid(boardpos, num):
+def block_valid(boardpos):
     # check related 3 x 3, 1 x 9, 9 x 1 after each edit.
     # if valid return BLUE color, if not return RED color.
     # Returned value should be use in text_surface color parameter.
@@ -43,28 +43,30 @@ def check_valid(boardpos, num):
     block2 = [3,4,5]
     block3 = [6,7,8]
     large_grid = [block1, block2, block3]
-    block_locate = [9,9]
-    
+    num = []
+
     for i, lst in enumerate(large_grid):
         if x in lst:
-            block_locate[0] = i
             x_list = large_grid[i]
         if y in lst:
-            block_locate[1] = i
             y_list = large_grid[i]
 
     permutations = list(itertools.product(x_list, y_list))
-    permutations.remove((x, y))
+    
 
     # 3 * 3
     for i, pos in enumerate(permutations):
         name = 'given_' + str(pos[0]) + '_' + str(pos[1])
         for g in module.given_list:
             if g.name == name and g.num > 0:
-                if g.num == num:
-                    print("block fail")
+                num.append(g.num)
+                if num.count(g.num) > 1:
+                    print("2")
                     return False
+    return True
+    
 
+def line_valid():
     # 1 * 9 and 9 * 1
     x_list = []
     y_list = []
@@ -86,9 +88,4 @@ def check_valid(boardpos, num):
                     print("y fail")
                     return False
     # for i, pos in enumerate(y_list):
-
-    return True
-    
-
-    
     # print(x_list,y_list)
