@@ -5,6 +5,8 @@ import itertools
 window_pos_grid = []
 board_pos_grid = []
 
+
+
 def init_highlight_pos():
     # Make highlight pos when the game starts
 
@@ -43,7 +45,7 @@ def block_valid(boardpos):
     block2 = [3,4,5]
     block3 = [6,7,8]
     large_grid = [block1, block2, block3]
-    num = []
+    dct = {}
 
     for i, lst in enumerate(large_grid):
         if x in lst:
@@ -53,17 +55,23 @@ def block_valid(boardpos):
 
     permutations = list(itertools.product(x_list, y_list))
     
-
     # 3 * 3
     for i, pos in enumerate(permutations):
         name = 'given_' + str(pos[0]) + '_' + str(pos[1])
         for g in module.given_list:
             if g.name == name and g.num > 0:
-                num.append(g.num)
-                if num.count(g.num) > 1:
-                    print("2")
-                    return False
-    return True
+                dct[(g.x, g.y)] = g.num
+                dup = module.duplicate_values(dct)
+                if dup:
+                    for poslist in dup:
+                        for pos in poslist:
+                            name = 'given_' + str(pos[0]) + '_' + str(pos[1])
+                            for g in module.given_list:
+                                if g.name == name and not g.fixed:
+                                    g.color = "RED"
+                                    g.last = g.num
+                                    
+
     
 
 def line_valid():

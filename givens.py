@@ -8,6 +8,7 @@ class Given():
         self.window_y = 0
         self.fixed = False
         self.color = "BLACK"
+        self.last = None
     def set_x(self,x):
         self.x = x
     def set_y(self,y):
@@ -17,7 +18,7 @@ class Given():
     def get_num(self):
         return self.num
     def __str__(self):
-        return "Name: {}, located({}, {}), window_coord({}, {}), num={}, fixed = {}".format(self.name, self.x, self.y, self.window_x, self.window_y, self.num,self.fixed)
+        return "Name: {}, located({}, {}), window_coord({}, {}), num={}, fixed = {}, color = {}".format(self.name, self.x, self.y, self.window_x, self.window_y, self.num, self.fixed, self.color)
         # (self.x, self.y),', value=',self.num
 
     def coord_convert(self, to_x, to_y, gap):

@@ -20,10 +20,9 @@ def check_available(pos):
         if g.name == name:
             return not g.fixed
 
-def overwrite(pos):
+def overwrite(pos, input):
     # overwrite a value into a boardpos
 
-    global input
     pos = mousepos_to_boardpos(pos)
     name = 'given_' + str(pos[0]) + '_' + str(pos[1])
 
@@ -197,20 +196,22 @@ def text_render(window, given, pos):
     font = pygame.font.Font(None,50)
 
     # if each number > 0 then show the number according to coords
-    if given.get_num() > 0 and given.fixed:
+    if given.get_num() > 0: 
+            if given.fixed:
 
-        # Show original numbers black.
-        given.color = "BLACK"
+                # Show original numbers black.
+                given.color = "BLACK"
 
-    elif given.get_num() > 0 and not view.block_valid(mousepos_to_boardpos(pos)):
+            # if view.block_valid(mousepos_to_boardpos(pos)):
 
-        # Show invalid numbers red.
-        given.color = "RED"
+            #     # Show invalid numbers red.
+            #     print("done")
 
-    elif given.get_num() > 0 and not given.fixed:
+            if not given.fixed and given.num != given.last:
 
-        # Show editable numbers blue.
-        given.color = "BLUE"
+                # Show editable numbers blue.
+                given.color = "BLUE"
+                view.block_valid(mousepos_to_boardpos(pos))
     
     elif given.get_num() <= 0:
         return
@@ -218,8 +219,24 @@ def text_render(window, given, pos):
     text_surface = font.render(format(given.get_num()), True, given.color)
     return window.blit(text_surface, (given.window_x, given.window_y))
 
-        
+def duplicate_values(dictionary):
+    # Generate from ChatGPT
+
+    keys_of_same_values = {}
+    for key, value in dictionary.items():
+        if value in keys_of_same_values:
+            keys_of_same_values[value].append(key)
+        else:
+            keys_of_same_values[value] = [key]
+    same_values = [keys for keys in keys_of_same_values.values() if len(keys) > 1]
+    if same_values:
+        return same_values
+    else:
+        return False        
     
 
-
+def find_given_by_name(name):
+    for g in given_list:
+        if g.name == name:
+            return g
 

@@ -6,6 +6,7 @@ import pygame_textinput
 
 from sys import exit
 
+init = False
 module.init_givens()
 view.init_highlight_pos()
 
@@ -17,6 +18,7 @@ def add_log_message(message):
     log_messages.append(message)
 
 def main():
+    global init
     pos = (0, 0)
     module.input = 0
     # Create TextInput-object
@@ -77,7 +79,7 @@ def main():
                     module.input = 9
                 elif event.unicode == '/b' or '0':
                     module.input = 0
-                module.overwrite(pos)
+                module.overwrite(pos, module.input)
                 print(module.input)
 
 
@@ -86,6 +88,8 @@ def main():
         # Render givens
         for g in module.given_list:
             module.text_render(window, g, pos)
+
+
 
         
         # Draw the log window
