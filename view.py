@@ -4,7 +4,8 @@ import itertools
 
 window_pos_grid = []
 board_pos_grid = []
-
+dct_x_line = {}
+dct_y_line = {}
 
 
 def init_highlight_pos():
@@ -45,7 +46,7 @@ def block_valid(boardpos):
     block2 = [3,4,5]
     block3 = [6,7,8]
     large_grid = [block1, block2, block3]
-    dct = {}
+    
 
     for i, lst in enumerate(large_grid):
         if x in lst:
@@ -56,44 +57,46 @@ def block_valid(boardpos):
     permutations = list(itertools.product(x_list, y_list))
     
     # 3 * 3
+    dct = {}
     for i, pos in enumerate(permutations):
-        name = 'given_' + str(pos[0]) + '_' + str(pos[1])
-        for g in module.given_list:
-            if g.name == name and g.num > 0:
-                dct[(g.x, g.y)] = g.num
-                dup = module.duplicate_values(dct)
-                if dup:
-                    for poslist in dup:
-                        for pos in poslist:
-                            name = 'given_' + str(pos[0]) + '_' + str(pos[1])
-                            for g in module.given_list:
-                                if g.name == name and not g.fixed:
-                                    g.color = "RED"
-                                    g.last = g.num
+        overwrite_color_by_pos(dct, pos)
                                     
+def overwrite_color_by_pos(dct, pos):
+    name = 'given_' + str(pos[0]) + '_' + str(pos[1])
+    for g in module.given_list:
+        if g.name == name and g.num > 0:
+            dct[(g.x, g.y)] = g.num
+            dup = module.duplicate_values(dct)
+            if dup:
+                for poslist in dup:
+                    for pos in poslist:
+                        name = 'given_' + str(pos[0]) + '_' + str(pos[1])
+                        for g in module.given_list:
+                            if g.name == name and not g.fixed:
+                                g.color = "RED"
+                                g.last = g.num
+            else:
+                if not g.fixed:
+                    g.color = "BLUE"
 
+
+def line_valid(boardpos):
     
+    x = boardpos[0]
+    y = boardpos[1]
 
-def line_valid():
     # 1 * 9 and 9 * 1
     x_list = []
     y_list = []
+
+    dct_x = {}
+    dct_y = {}
+
     for i in range(9):
         x_list.append((x, i))
         y_list.append((i, y))
     
     for x, y in zip(x_list, y_list):
-        name = 'given_' + str(x[0]) + '_' + str(x[1])
-        for g in module.given_list:
-            if g.name == name and g.num > 0:
-                if g.num == num:
-                    print("x fail")
-                    return False
-        name = 'given_' + str(y[0]) + '_' + str(y[1])
-        for g in module.given_list:
-            if g.name == name and g.num > 0:
-                if g.num == num:
-                    print("y fail")
-                    return False
-    # for i, pos in enumerate(y_list):
-    # print(x_list,y_list)
+        overwrite_color_by_pos(dct_x, x)
+        overwrite_color_by_pos(dct_y, y)
+

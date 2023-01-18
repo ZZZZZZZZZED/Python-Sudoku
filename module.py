@@ -211,6 +211,7 @@ def text_render(window, given, pos):
 
                 # Show editable numbers blue.
                 given.color = "BLUE"
+                view.line_valid(mousepos_to_boardpos(pos))
                 view.block_valid(mousepos_to_boardpos(pos))
     
     elif given.get_num() <= 0:
@@ -234,9 +235,11 @@ def duplicate_values(dictionary):
     else:
         return False        
     
-
-def find_given_by_name(name):
+def finish_check():
     for g in given_list:
-        if g.name == name:
-            return g
+        if g.num < 1 or g.color == "RED":
+            return False
+        else:
+            return True
+
 
