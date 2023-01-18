@@ -225,8 +225,7 @@ def text_render(window, given, pos):
                 given.color = "BLUE"
                 view.check_block()
                 view.check_lines()
-                # view.line_valid(mousepos_to_boardpos(pos))
-                # view.block_valid(mousepos_to_boardpos(pos))
+
     
     elif given.get_num() <= 0:
         return
