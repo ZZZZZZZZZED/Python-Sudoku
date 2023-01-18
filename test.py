@@ -1,4 +1,10 @@
-import module
-dct = {'apple': 'red', 'banana': 'yellow', 'orange': 'red'}
+import itertools
+import module as m
+import view as v
 
-print(module.duplicate_values(dct))
+m.init_givens()
+
+
+
+v.check_lines()
+        

@@ -32,34 +32,6 @@ def find_gridpos_by_click(pos:tuple):
         return window_pos_grid[i]
     else:
         return 'fail find, or fixed slot.'
-
-def block_valid(boardpos):
-    # check related 3 x 3, 1 x 9, 9 x 1 after each edit.
-    # if valid return BLUE color, if not return RED color.
-    # Returned value should be use in text_surface color parameter.
-
-    x = boardpos[0]
-    y = boardpos[1]
-    x_list = []
-    y_list = []
-    block1 = [0,1,2]
-    block2 = [3,4,5]
-    block3 = [6,7,8]
-    large_grid = [block1, block2, block3]
-    
-
-    for i, lst in enumerate(large_grid):
-        if x in lst:
-            x_list = large_grid[i]
-        if y in lst:
-            y_list = large_grid[i]
-
-    permutations = list(itertools.product(x_list, y_list))
-    
-    # 3 * 3
-    dct = {}
-    for i, pos in enumerate(permutations):
-        overwrite_color_by_pos(dct, pos)
                                     
 def overwrite_color_by_pos(dct, pos):
     name = 'given_' + str(pos[0]) + '_' + str(pos[1])
@@ -79,6 +51,67 @@ def overwrite_color_by_pos(dct, pos):
                 if not g.fixed:
                     g.color = "BLUE"
 
+
+def check_block():
+    large_grid = [[0,1,2], [3,4,5], [6,7,8]]
+
+    for i, x in enumerate(large_grid):
+        for j, y in enumerate(large_grid):
+            permutations = list(itertools.product(x, y))
+            dct = {}
+            for i, pos in enumerate(permutations):
+                given = module.find_by_pos(pos)
+                if given.num > 0:
+                    dct[(given.x, given.y)] = given.num
+            dup_value = module.duplicate_values(dct)
+            if dup_value:
+                for poslist in dup_value:
+                    for pos in poslist:
+                        given = module.find_by_pos(pos)
+                        given.color = "RED"
+        dct = {}
+
+def check_lines():
+    x_list = []
+    y_list = []
+    dct = {}
+
+    pos_list = module.board_pos_list()
+    for pos in pos_list:
+        given = module.find_by_pos(pos)
+        if not given.fixed:
+            for i in range(9):
+                x_list.append((given.x, i))
+                y_list.append((i, given.y))
+            for pos in x_list:
+                given_x = module.find_by_pos(pos)
+                if given_x.num > 0:
+                    module.form_dic(dct, given_x)
+
+            dup_value = module.duplicate_values(dct)
+
+            if dup_value:
+                for poslist in dup_value:
+                    for pos in poslist:
+                        given = module.find_by_pos(pos)
+                        given.color = "RED"
+            dct = {}
+
+            for pos in y_list:
+                given_y = module.find_by_pos(pos)
+                if given_y.num > 0:
+                    module.form_dic(dct, given_y)
+
+            dup_value = module.duplicate_values(dct)
+
+            if dup_value:
+                for poslist in dup_value:
+                    for pos in poslist:
+                        given = module.find_by_pos(pos)
+                        given.color = "RED"
+            dct = {}            
+            x_list = []
+            y_list = []
 
 def line_valid(boardpos):
     

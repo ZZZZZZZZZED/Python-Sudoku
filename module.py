@@ -11,6 +11,14 @@ input = 0
 
 df = pd.read_excel('resource/sudoku_base.xlsx')
 
+def board_pos_list():
+    lst = []
+    for i in range(9):
+        for j in range(9):
+            lst.append((i, j))
+    return lst
+
+
 def check_available(pos):
     pos = mousepos_to_boardpos(pos)
     name = 'given_' + str(pos[0]) + '_' + str(pos[1])
@@ -30,6 +38,10 @@ def overwrite(pos, input):
     for g in given_list:
         if g.name == name and not g.fixed:
             g.num = input
+
+    # If detect all slots is valid then end the game.
+    if finish_check():
+        print("Game Over!")
 
 def mousepos_to_boardpos(pos):
     # covert mouse click pos to boardpos
@@ -211,8 +223,10 @@ def text_render(window, given, pos):
 
                 # Show editable numbers blue.
                 given.color = "BLUE"
-                view.line_valid(mousepos_to_boardpos(pos))
-                view.block_valid(mousepos_to_boardpos(pos))
+                view.check_block()
+                view.check_lines()
+                # view.line_valid(mousepos_to_boardpos(pos))
+                # view.block_valid(mousepos_to_boardpos(pos))
     
     elif given.get_num() <= 0:
         return
@@ -235,11 +249,24 @@ def duplicate_values(dictionary):
     else:
         return False        
     
+def check_duplicates(my_list):
+    return len(my_list) != len(set(my_list))
+
 def finish_check():
+    i = 0
     for g in given_list:
         if g.num < 1 or g.color == "RED":
             return False
-        else:
-            return True
+        if g.color == "BLUE" or "BLACK" and g.num > 0:
+            i += 1
+            if i > 80:
+                return True
 
+def find_by_pos(pos):
+    name = 'given_' + str(pos[0]) + '_' + str(pos[1])
+    for g in given_list:
+        if g.name == name:
+            return g
 
+def form_dic(dict, given):
+    dict[(given.x, given.y)] = given.num

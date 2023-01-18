@@ -80,7 +80,7 @@ def main():
                 elif event.unicode == '/b' or '0':
                     module.input = 0
                 module.overwrite(pos, module.input)
-                print(module.input)
+                
 
 
         window.blit(board_surface,(0,0))
